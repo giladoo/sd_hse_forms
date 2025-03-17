@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_sd_hse_forms_projects_admins,sd_hse_forms.projects,model_sd_hse_forms_projects,sd_hse_forms.group_sd_hse_forms_admins,1,1,1,1
