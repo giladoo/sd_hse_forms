@@ -17,7 +17,7 @@ class SdHseFormsContorller(http.Controller):
     def hse_forms(self, project_code,  **kwargs):
         print(f'\n project_code: {project_code} kwargs: {kwargs}')
         data = {}
-        project_id = request.env['sd_hse_forms.projects'].search([('project_code', '=', project_code)])
+        project_id = request.env['sd_hse_forms.projects'].sudo().search([('project_code', '=', project_code)])
         if project_id:
             data = {
                 'name': project_id.name,
