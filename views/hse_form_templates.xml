@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <template id="form_template">
-        <!--        <t t-call="web.frontend_layout">-->
+<!--                <t t-call="web.frontend_layout">-->
         <t t-call="survey.layout">
 
-            <div class="container">
+            <div class="container bg-300">
                 <!--                Form Header-->
-                <div class="row row-cols-auto border-bottom border-dark  mb-2 py-1">
+                <div class="row row-cols-auto border-sm border-bottom border-dark border-3  mb-2 py-1">
                     <div class="col-3 align-content-center">
                     <img t-attf-src="/web/image/res.company/1/logo_web"
                          alt="Company Logo" style="max-height: 60px;"
