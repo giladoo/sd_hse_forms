@@ -4,7 +4,7 @@
 <!--                <t t-call="web.frontend_layout">-->
         <t t-call="survey.layout">
 
-            <div class="container bg-300">
+            <div class="container bg-300 pb-5">
                 <!--                Form Header-->
                 <div class="row row-cols-auto border-sm border-bottom border-dark border-3  mb-2 py-1">
                     <div class="col-3 align-content-center">
@@ -95,7 +95,7 @@
                             <input type="text" id="observer_mobile" name="observer_mobile" class="form-control"/>
                     </div>
 
-                    <div class="mt-2 text-end">
+                    <div class="my-4 text-end">
                         <input type="submit" value="Submit" class="btn btn-primary"/>
 
                     </div>
