@@ -7,10 +7,10 @@
             <div class="container bg-300 pb-5">
                 <!--                Form Header-->
                 <div class="row row-cols-auto border-sm1 border-bottom1 border-dark1 border-31  mb-2 py-1">
-                    <div class="col-3 align-content-center w-100">
+                    <div class="col-3 align-content-center">
                     <img t-attf-src="/web/image/res.company/1/logo_web"
                          alt="Company Logo"
-                         class="o_event_barcode_company_image"/>
+                         class="o_event_barcode_company_image w-100"/>
                     </div>
                     <div class="col-6 text-center">
                         <div class="">
