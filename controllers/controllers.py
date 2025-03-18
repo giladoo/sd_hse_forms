@@ -25,7 +25,7 @@ class SdHseFormsContorller(http.Controller):
         #       f"\n IPAddr:{request.httprequest.environ['REMOTE_ADDR']}"
         #       )
         # ic(request.httprequest.environ)
-        ic(request.httprequest.environ[])
+        # ic(request.httprequest.environ[])
         logging.info(f"\nREMOTE_ADDR{request.httprequest.environ['REMOTE_ADDR']}\n")
         data = {}
         project_id = request.env['sd_hse_forms.projects'].sudo().search([('project_code', '=', project_code)])
