@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+    <t t-name="sd_hse_forms.website_form_template">
+        <div class="container bg-300 pb-5">
+                <!--                Form Header-->
+                <div class="row row-cols-auto border-sm1 border-bottom1 border-dark1 border-31  mb-2 py-1">
+                    <div class="col-3 align-content-center">
+                    <img t-attf-src="/web/image/res.company/1/logo_web"
+                         alt="Company Logo"
+                         class="o_event_barcode_company_image w-100"/>
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="">
+                            Form
+                        </div>
+                        <div class="h4">
+                            HSE STOP Card
+                        </div>
+                        <div class="">
+                            ( Reporting system)
+                        </div>
+
+                    </div>
+                    <div class="col-3 align-content-center">
+                        <div class="row">
+                            <div class="col d-none d-md-block align-content-center">
+                                Doc.Code:
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                        <div class="row">
+                            <div class="col d-none d-md-block align-content-center">
+                                Src.Doc.:
+                            </div>
+                            <div class="col"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-3" style="border-bottom: 1px solid #000;"></div>
+                <!--                Form Body-->
+                <form t-ref="hse_form" t-att-id="props.id">
+                    <div class="row row-cols-auto mx-0">
+                        <div class="col d-none d-md-block align-content-center">
+                            <lable for="project_name" class="form-label">Project:</lable>
+                        </div>
+                        <div class="col h3">
+                            <div t-att-id="id" t-esc="props.name"/>
+                        </div>
+                        <div class="col d-none d-md-block">
+                            <lable for="issue_date">Date:</lable>
+                        </div>
+                        <div class="col h6  align-content-center">
+                            <div class="" t-esc="props.jdate"></div>
+                        </div>
+                    </div>
+
+                    <lable for="subject" class="smaller">Unsafe Act/Condition <span>*</span></lable>
+                    <textarea type="textarea" id="subject" name="subject" style="height: 100px;"
+                              class="form-control border border-info"/>
+
+
+                    <div class="form-check m-1">
+                        <input class="form-check-input" type="checkbox" id="safty"/>
+                        <label class="form-check-label" for="safty">
+                            Safty
+                        </label>
+                    </div>
+                    <div class="form-check m-1">
+                        <input class="form-check-input" type="checkbox" id="health"/>
+                        <label class="form-check-label" for="health">
+                            Health
+                        </label>
+                    </div>
+                    <div class="form-check m-1">
+                        <input class="form-check-input" type="checkbox" id="environment"/>
+                        <label class="form-check-label" for="environment">
+                            Environment
+                        </label>
+                    </div>
+
+                    <lable for="actions" class="smaller">Corrective Action <span>*</span></lable>
+                    <textarea type="textarea" id="actions" name="actions" style="height: 100px;"
+                              class="form-control border border-info"/>
+
+                    <div class="row mx-0 ">
+                            <label for="observer_name" class="form-lable smaller mt-2">Name</label>
+                            <input type="text" id="observer_name" name="observer_name" class="form-control"/>
+
+                            <label for="observer_job_title" class="form-lable smaller mt-2">Job Title</label>
+                            <input type="text" id="observer_job_title" name="observer_job_title" class="form-control"/>
+
+                            <label for="observer_mobile" class="form-lable smaller mt-2">Mobile No</label>
+                            <input type="text" id="observer_mobile" name="observer_mobile" class="form-control"/>
+                    </div>
+
+                    <div class="my-4 text-end">
+                        <input type="submit" value="Submit" class="btn btn-primary"/>
+
+                    </div>
+
+                </form>
+
+
+                <!--            <owl-component name="sd_hse_forms.form_component" />-->
+            </div>
+
+    </t>
+</templates>

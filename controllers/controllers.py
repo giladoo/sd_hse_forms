@@ -28,9 +28,4 @@ class SdHseFormsContorller(http.Controller):
             }
 
         print(f'\n data: {data}')
-        return http.request.render('sd_hse_forms.form_template', data)
-
-
-
-
-
+        return http.request.render('sd_hse_forms.form_template', {'props': data})

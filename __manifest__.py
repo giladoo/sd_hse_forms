@@ -23,6 +23,7 @@
     'assets': {
 
         'web.assets_frontend': [
+            'sd_hse_forms/static/src/components/website/**/*',
 
         ],
         'web.assets_backend': [
