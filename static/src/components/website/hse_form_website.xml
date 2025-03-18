@@ -9,7 +9,7 @@
                          alt="Company Logo"
                          class="o_event_barcode_company_image w-100"/>
                     </div>
-                    <div class="col-6 text-center">
+                    <div class="col-6 text-center align-content-center">
                         <div class="">
                             Form
                         </div>
@@ -37,8 +37,16 @@
                     </div>
                 </div>
                 <div class="mb-3" style="border-bottom: 1px solid #000;"></div>
+
                 <!--                Form Body-->
-                <form t-ref="hse_form" t-att-id="props.id">
+                <form t-ref="hse_form" t-att-id="props.id"
+                    action="/website/form/" method="post"
+                    enctype="multipart/form-data"
+                    class="o_mark_required"
+                    data-mark="*" data-pre-fill="true"
+                    data-success-mode="redirect"
+                    data-success-page="/contactus-thank-you"
+                    data-model_name="mail.mail">
                     <div class="row row-cols-auto mx-0">
                         <div class="col d-none d-md-block align-content-center">
                             <lable for="project_name" class="form-label">Project:</lable>
@@ -55,54 +63,51 @@
                     </div>
 
                     <lable for="subject" class="smaller">Unsafe Act/Condition <span>*</span></lable>
-                    <textarea type="textarea" id="subject" name="subject" style="height: 100px;"
-                              class="form-control border border-info"/>
+                    <textarea type="textarea" id="subject" name="subject" style="height: 100px;" required="1"
+                              class="form-control border border-info website_form_input"/>
 
-
-                    <div class="form-check m-1">
-                        <input class="form-check-input" type="checkbox" id="safty"/>
-                        <label class="form-check-label" for="safty">
-                            Safty
-                        </label>
-                    </div>
-                    <div class="form-check m-1">
-                        <input class="form-check-input" type="checkbox" id="health"/>
-                        <label class="form-check-label" for="health">
-                            Health
-                        </label>
-                    </div>
-                    <div class="form-check m-1">
-                        <input class="form-check-input" type="checkbox" id="environment"/>
-                        <label class="form-check-label" for="environment">
-                            Environment
-                        </label>
+                    <div t-ref="hse_checkboxes" class="my-2 rounded">
+                        <div class="form-check m-1">
+                            <input class="form-check-input website_form_checkbox" type="checkbox" name="safty"/>
+                            <label class="form-check-label" for="safty">
+                                Safty
+                            </label>
+                        </div>
+                        <div class="form-check m-1">
+                            <input class="form-check-input website_form_checkbox" type="checkbox" name="health"/>
+                            <label class="form-check-label" for="health">
+                                Health
+                            </label>
+                        </div>
+                        <div class="form-check m-1">
+                            <input class="form-check-input website_form_checkbox" type="checkbox" name="environment"/>
+                            <label class="form-check-label" for="environment">
+                                Environment
+                            </label>
+                        </div>
                     </div>
 
                     <lable for="actions" class="smaller">Corrective Action <span>*</span></lable>
-                    <textarea type="textarea" id="actions" name="actions" style="height: 100px;"
-                              class="form-control border border-info"/>
+                    <textarea type="textarea" id="actions" name="actions" style="height: 100px;" required="1"
+                              class="form-control border border-info website_form_input "/>
 
                     <div class="row mx-0 ">
                             <label for="observer_name" class="form-lable smaller mt-2">Name</label>
-                            <input type="text" id="observer_name" name="observer_name" class="form-control"/>
+                            <input type="text" id="observer_name" name="observer_name" class="form-control website_form_input"/>
 
                             <label for="observer_job_title" class="form-lable smaller mt-2">Job Title</label>
-                            <input type="text" id="observer_job_title" name="observer_job_title" class="form-control"/>
+                            <input type="text" id="observer_job_title" name="observer_job_title" class="form-control website_form_input"/>
 
                             <label for="observer_mobile" class="form-lable smaller mt-2">Mobile No</label>
-                            <input type="text" id="observer_mobile" name="observer_mobile" class="form-control"/>
+                            <input type="text" id="observer_mobile" name="observer_mobile" class="form-control website_form_input"/>
                     </div>
 
-                    <div class="my-4 text-end">
-                        <input type="submit" value="Submit" class="btn btn-primary"/>
-
-                    </div>
+                        <div class="my-4 text-end " t-ref="send_button">
+                            <a href="#" class="btn btn-primary s_website_form_send">Send</a>
+                        </div>
+                        <div t-ref="form_result" class="text-center"></div>
 
                 </form>
-
-
-                <!--            <owl-component name="sd_hse_forms.form_component" />-->
             </div>
-
     </t>
 </templates>

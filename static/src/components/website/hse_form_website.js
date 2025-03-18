@@ -11,6 +11,7 @@ import { usePopover } from "@web/core/popover/popover_hook";
 import { Tooltip } from "@web/core/tooltip/tooltip";
 import { rpc } from "@web/core/network/rpc";
 import { session } from "@web/session";
+    import {ReCaptcha} from "@google_recaptcha/js/recaptcha";
 
 export class SdHseFormsWebsite extends Component {
     static template = "sd_hse_forms.website_form_template";
@@ -18,7 +19,65 @@ export class SdHseFormsWebsite extends Component {
     static components = { Dropdown, DropdownItem };
     setup(){
         this.form = useRef('hse_form')
-        this.form
+        this.sendButton = useRef('send_button')
+        this.hse_checkboxes = useRef('hse_checkboxes')
+        this.form_result = useRef('form_result')
+        this._recaptcha = new ReCaptcha();
+        console.log('this', session)
+        onMounted(() => {
+            this.sendButtonListener = this.sendButton.el.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.form_result.el.innerHTML = ''
+                const inputs = this.form.el.querySelectorAll('.website_form_input')
+                const checkboxs = this.form.el.querySelectorAll('.website_form_checkbox')
+                const data = {};
+//                data[si] = session
+                let notCompletedForm = false;
+                let hseCheckbox = false;
+                let requiredEmpty = []
+                inputs.forEach(input => {
+                    input.classList.remove('sd-border-danger')
+                    if (input.required && input.value.length < 6){
+                        input.classList.add('sd-border-danger')
+                        notCompletedForm = true
+                    }
+                    data[input.name] = {value: input.value, required: input.required};
+
+                });
+                checkboxs.forEach(checkbox => {
+                    checkbox.classList.remove('sd-border-danger')
+                    if (checkbox.required && !checkbox.checked){
+                        checkbox.classList.add('sd-border-danger')
+                        notCompletedForm = true
+                    }
+                    checkbox.checked ? hseCheckbox = true : ''
+                    data[checkbox.name] = {value: checkbox.checked, required: checkbox.required}
+                });
+                this.hse_checkboxes.el.classList.remove('sd-border-danger')
+                if (!hseCheckbox){
+                    this.hse_checkboxes.el.classList.add('sd-border-danger')
+                    notCompletedForm = true
+
+                }
+
+                if(!notCompletedForm){
+                    this.form.el.reset()
+                    this.setRecord(data)
+                    this.form_result.el.innerHTML = `<p class="text-success" > Sent</p>`
+
+                }else{
+                    this.form_result.el.innerHTML = `<p class="text-danger" > * Required</p>`
+
+                }
+            });
+        })
+        this.setRecord = this.setRecord.bind(this)
+    }
+    async setRecord(data){
+        console.log(data);
+        await rpc('/sdhseformsdata/', data)
+
+        return true
     }
 
     }
