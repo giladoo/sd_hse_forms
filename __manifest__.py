@@ -16,6 +16,7 @@
         'security/ir.model.access.csv',
         # 'data/weather_data.xml',
         # 'data/hazard_types_data.xml',
+        'views/form_sent_template.xml',
         'views/hse_form_templates.xml',
         # 'views/records_form.xml',
         'views/views.xml',

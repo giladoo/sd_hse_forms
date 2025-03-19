@@ -40,12 +40,12 @@
 
                 <!--                Form Body-->
                 <form t-ref="hse_form" t-att-id="props.id"
-                    action="/website/form/" method="post"
+                    action="/sdhseformsent/" method="post"
                     enctype="multipart/form-data"
                     class="o_mark_required"
                     data-mark="*" data-pre-fill="true"
                     data-success-mode="redirect"
-                    data-success-page="/contactus-thank-you"
+                    data-success-page="/sdhseformsent/"
                     data-model_name="mail.mail">
                     <div class="row row-cols-auto mx-0">
                         <div class="col d-none d-md-block align-content-center">
@@ -53,6 +53,10 @@
                         </div>
                         <div class="col h3">
                             <div t-att-id="id" t-esc="props.name"/>
+                            <input class="website_form_input" type="hidden" name="project_name" t-att-value="props.name"/>
+                            <input class="website_form_input" type="hidden" name="project_id" t-att-value="props.id"/>
+                            <input class="website_form_input" type="hidden" name="uu_id" t-att-value="props.uu_id"/>
+                            <input class="website_form_input" type="hidden" name="link_address" t-att-value="props.link_address"/>
                         </div>
                         <div class="col d-none d-md-block">
                             <lable for="issue_date">Date:</lable>
@@ -68,15 +72,15 @@
 
                     <div t-ref="hse_checkboxes" class="my-2 rounded">
                         <div class="form-check m-1">
-                            <input class="form-check-input website_form_checkbox" type="checkbox" name="safty"/>
-                            <label class="form-check-label" for="safty">
-                                Safty
+                            <input class="form-check-input website_form_checkbox" type="checkbox" name="health"/>
+                                <label class="form-check-label" for="health">
+                                Health
                             </label>
                         </div>
                         <div class="form-check m-1">
-                            <input class="form-check-input website_form_checkbox" type="checkbox" name="health"/>
-                            <label class="form-check-label" for="health">
-                                Health
+                            <input class="form-check-input website_form_checkbox" type="checkbox" name="safety"/>
+                            <label class="form-check-label" for="safety">
+                                Safety
                             </label>
                         </div>
                         <div class="form-check m-1">

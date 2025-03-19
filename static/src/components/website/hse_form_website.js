@@ -13,19 +13,21 @@ import { rpc } from "@web/core/network/rpc";
 import { session } from "@web/session";
     import {ReCaptcha} from "@google_recaptcha/js/recaptcha";
 
+
 export class SdHseFormsWebsite extends Component {
     static template = "sd_hse_forms.website_form_template";
     static props = {};
     static components = { Dropdown, DropdownItem };
     setup(){
+        this.state = useState({uu_id: 0})
         this.form = useRef('hse_form')
         this.sendButton = useRef('send_button')
         this.hse_checkboxes = useRef('hse_checkboxes')
         this.form_result = useRef('form_result')
         this._recaptcha = new ReCaptcha();
         console.log('this', session)
-        onMounted(() => {
-            this.sendButtonListener = this.sendButton.el.addEventListener('click', (e) => {
+        onMounted( () => {
+            this.sendButtonListener = this.sendButton.el.addEventListener('click', async (e) => {
                 e.preventDefault();
                 this.form_result.el.innerHTML = ''
                 const inputs = this.form.el.querySelectorAll('.website_form_input')
@@ -61,9 +63,22 @@ export class SdHseFormsWebsite extends Component {
                 }
 
                 if(!notCompletedForm){
-                    this.form.el.reset()
-                    this.setRecord(data)
-                    this.form_result.el.innerHTML = `<p class="text-success" > Sent</p>`
+                    let res = await this.setRecord(data);
+                    console.log('res:', res)
+                    if (!res){
+                         this.form_result.el.innerHTML = `<p class="text-danger" > Reload page</p>`
+
+                    }else{
+//                        this.form.el.reset()
+//                        document.location.reload()
+                        let submitButton = document.createElement('input')
+                        submitButton.type = 'submit'
+                        submitButton.classList = 'd-none'
+//                        link.href = `/sdhseformsent/${data.uu_id.value}`
+//                        this.form_result.el.innerHTML = `<p class="text-success" > Sent</p>`
+                        this.form.el.appendChild(submitButton).click()
+                    }
+
 
                 }else{
                     this.form_result.el.innerHTML = `<p class="text-danger" > * Required</p>`
@@ -74,10 +89,8 @@ export class SdHseFormsWebsite extends Component {
         this.setRecord = this.setRecord.bind(this)
     }
     async setRecord(data){
-        console.log(data);
-        await rpc('/sdhseformsdata/', data)
-
-        return true
+        let res = await rpc('/sdhseformsdata', data)
+        return res
     }
 
     }

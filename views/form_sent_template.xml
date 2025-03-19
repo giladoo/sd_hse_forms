@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="form_sent_template">
+        <!--                <t t-call="web.frontend_layout">-->
+        <t t-call="survey.layout">
+            <div class="container">
+                <t t-if="props">
+                    <div class="h1 text-center">
+                        Sent
+                    </div>
+                    <div class="px-2">
+                        <div class="h5 mt-4 mb-1">Project:</div>
+                        <div t-esc="props['project_name']" class="ms-4"></div>
+                        <div class="h5 mt-4 mb-1">Subject:</div>
+                        <div t-esc="props['subject']" class="ms-4"></div>
+                        <div class="h5 mt-4 mb-1">Actions:</div>
+                        <div t-esc="props['actions']" class="ms-4"></div>
+                        <div class="h5 mt-4 mb-1">Code:</div>
+                        <div t-esc="props['uu_id']" class="ms-4"></div>
+                    </div>
+                    <div class="text-center">
+                        <a t-att-href="props['link_address']" class="btn btn-primary mx-auto my-5">Back to form</a>
+                    </div>
+                </t>
+                <t t-else="">
+                    <div class="">
+                        Oh!
+                    </div>
+                </t>
+            </div>
+        </t>
+    </template>
+</odoo>

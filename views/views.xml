@@ -10,17 +10,27 @@
             </list>
         </field>
     </record>
+
     <record id="projects_form" model="ir.ui.view">
         <field name="name">Projects</field>
         <field name="model">sd_hse_forms.projects</field>
         <field name="arch" type="xml">
             <form>
                 <sheet>
-
                 <group>
                     <group>
                         <field name="name"/>
                         <field name="project_code"/>
+                        <field name="base_address"/>
+                        <field name="link_address" class="btn btn-link"/>
+                        <field name="qr_code" string="Download QR Code"/>
+                        <div class="text-center">
+                            <field name="qr_code" widget="image"/>
+
+                        </div>
+
+                    </group>
+                    <group>
 
                     </group>
                 </group>
@@ -30,17 +40,53 @@
         </field>
     </record>
 
+
+    <record id="stop_card_list" model="ir.ui.view">
+        <field name="name">stop_card</field>
+        <field name="model">sd_hse_forms.stop_card</field>
+        <field name="arch" type="xml">
+            <list editable="top">
+                <field name="is_new"/>
+                <field name="uu_id"/>
+                <field name="ip_address"/>
+                <field name="subject"/>
+                <field name="actions"/>
+                <field name="project_name"/>
+                <field name="safety"/>
+                <field name="health"/>
+                <field name="environment"/>
+                <field name="observer_name"/>
+                <field name="observer_job_title"/>
+                <field name="observer_mobile"/>
+            </list>
+        </field>
+    </record>
+
+
     <record id="sd_hse_forms_action" model="ir.actions.act_window">
         <field name="name">Projects</field>
         <field name="res_model">sd_hse_forms.projects</field>
         <field name="view_mode">list,form</field>
-
     </record>
+
+    <record id="stop_card_action" model="ir.actions.act_window">
+        <field name="name">Stop Card</field>
+        <field name="res_model">sd_hse_forms.stop_card</field>
+        <field name="view_mode">list</field>
+    </record>
+
 
     <menuitem
         name="HSE Projects"
         id="sd_hse_root_menu"
         action="sd_hse_forms_action"
+    />
+
+    <menuitem
+        name="Stop Cards"
+        id="stop_card_root_menu"
+        parent="sd_hse_root_menu"
+        action="stop_card_action"
     />
 
 </odoo>
