@@ -48,8 +48,8 @@ class SdHseFormsStopCard(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
 
     uu_id = fields.Char(required=True)
-    subject = fields.Char()
-    actions = fields.Char()
+    subject = fields.Text()
+    actions = fields.Text()
     observer_name = fields.Char()
     observer_job_title = fields.Char()
     observer_mobile = fields.Char()

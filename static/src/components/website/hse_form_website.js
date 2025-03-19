@@ -27,6 +27,7 @@ export class SdHseFormsWebsite extends Component {
         this._recaptcha = new ReCaptcha();
         console.log('this', session)
         onMounted( () => {
+        this.getGeoData()
             this.sendButtonListener = this.sendButton.el.addEventListener('click', async (e) => {
                 e.preventDefault();
                 this.form_result.el.innerHTML = ''
@@ -89,8 +90,21 @@ export class SdHseFormsWebsite extends Component {
         this.setRecord = this.setRecord.bind(this)
     }
     async setRecord(data){
+
         let res = await rpc('/sdhseformsdata', data)
         return res
+    }
+    getGeoData(){
+                        console.log('location 1:' )
+
+        navigator.geolocation.getCurrentPosition(
+            ({coords: {latitude, longitude}}) => {
+                    console.log('location 2:', coords )
+            },
+            err => {
+                    console.log('location 3:', err )
+
+            })
     }
 
     }

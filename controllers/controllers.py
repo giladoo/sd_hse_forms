@@ -19,6 +19,7 @@ class SdHseFormsContorller(http.Controller):
     @http.route('/sdhseform/<string:project_code>', type='http', website=True, auth="public",)
     def hse_forms(self, project_code,  **kwargs):
         # logging.info(f"\nREMOTE_ADDR{request.httprequest.environ['HTTP_X_REAL_IP']}\n")
+        ic(request)
         ic(dict(request.session))
         data = {
             'name':'',

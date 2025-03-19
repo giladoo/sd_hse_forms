@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
     <t t-name="sd_hse_forms.website_form_template">
-        <div class="container bg-300 pb-5">
+        <div class="container px-0 pb-5">
                 <!--                Form Header-->
-                <div class="row row-cols-auto border-sm1 border-bottom1 border-dark1 border-31  mb-2 py-1">
+                <div class="row row-cols-auto border-sm1 border-bottom1 border-dark1 border-31 py-1">
                     <div class="col-3 align-content-center">
                     <img t-attf-src="/web/image/res.company/1/logo_web"
                          alt="Company Logo"
                          class="o_event_barcode_company_image w-100"/>
                     </div>
                     <div class="col-6 text-center align-content-center">
-                        <div class="">
+                        <div class="mb-1 mb-md-3">
                             Form
                         </div>
-                        <div class="h4">
+                        <div class="h4 mb-1 mb-md-3">
                             HSE STOP Card
                         </div>
                         <div class="">
@@ -36,9 +36,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="mb-3" style="border-bottom: 1px solid #000;"></div>
+                <div class="mx-3 my-1 my-md-3 rounded-3" style="border-bottom: 3px solid #08609c;"></div>
 
                 <!--                Form Body-->
+            <div class="bg-success-subtle p-3 rounded-3">
                 <form t-ref="hse_form" t-att-id="props.id"
                     action="/sdhseformsent/" method="post"
                     enctype="multipart/form-data"
@@ -70,20 +71,20 @@
                     <textarea type="textarea" id="subject" name="subject" style="height: 100px;" required="1"
                               class="form-control border border-info website_form_input"/>
 
-                    <div t-ref="hse_checkboxes" class="my-2 rounded">
-                        <div class="form-check m-1">
+                    <div t-ref="hse_checkboxes" class=" row mx-0 my-3 ps-3 rounded">
+                        <div class="col form-check m-1">
                             <input class="form-check-input website_form_checkbox" type="checkbox" name="health"/>
                                 <label class="form-check-label" for="health">
                                 Health
                             </label>
                         </div>
-                        <div class="form-check m-1">
+                        <div class="col form-check m-1">
                             <input class="form-check-input website_form_checkbox" type="checkbox" name="safety"/>
                             <label class="form-check-label" for="safety">
                                 Safety
                             </label>
                         </div>
-                        <div class="form-check m-1">
+                        <div class="col form-check m-1">
                             <input class="form-check-input website_form_checkbox" type="checkbox" name="environment"/>
                             <label class="form-check-label" for="environment">
                                 Environment
@@ -97,21 +98,30 @@
 
                     <div class="row mx-0 ">
                             <label for="observer_name" class="form-lable smaller mt-2">Name</label>
-                            <input type="text" id="observer_name" name="observer_name" class="form-control website_form_input"/>
+                            <input type="text" id="observer_name" name="observer_name" autocomplete="on"
+                                   class="form-control website_form_input"/>
 
-                            <label for="observer_job_title" class="form-lable smaller mt-2">Job Title</label>
-                            <input type="text" id="observer_job_title" name="observer_job_title" class="form-control website_form_input"/>
+                            <label for="observer_job_title" class="form-label smaller mt-2">Job Title</label>
+                            <input type="text" id="observer_job_title" name="observer_job_title" autocomplete="on"
+                                   class="form-control website_form_input"/>
 
-                            <label for="observer_mobile" class="form-lable smaller mt-2">Mobile No</label>
-                            <input type="text" id="observer_mobile" name="observer_mobile" class="form-control website_form_input"/>
+                            <label for="observer_mobile" class="form-label smaller mt-2">Mobile No</label>
+                            <input type="text" id="observer_mobile" name="observer_mobile" autocomplete="on"
+                                   class="form-control website_form_input"/>
+
+<!--                            <label for="attachment" class="form-label smaller mt-2">Attachment</label>-->
+<!--                            <input type="file" id="attachment" name="attachment"-->
+<!--                                   class="form-control website_form_input"/>-->
                     </div>
 
-                        <div class="my-4 text-end " t-ref="send_button">
+                        <div class="m-5 text-end " t-ref="send_button">
                             <a href="#" class="btn btn-primary s_website_form_send">Send</a>
                         </div>
                         <div t-ref="form_result" class="text-center"></div>
 
                 </form>
+
             </div>
+        </div>
     </t>
 </templates>
