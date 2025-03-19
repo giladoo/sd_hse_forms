@@ -3,7 +3,7 @@
     <t t-name="sd_hse_forms.website_form_template">
         <div class="container px-0 pb-5">
                 <!--                Form Header-->
-                <div class="row row-cols-auto border-sm1 border-bottom1 border-dark1 border-31 py-1">
+                <div class="row row-cols-auto mx-0 border-sm1 border-bottom1 border-dark1 border-31 py-1">
                     <div class="col-3 align-content-center">
                     <img t-attf-src="/web/image/res.company/1/logo_web"
                          alt="Company Logo"
@@ -36,10 +36,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="mx-3 my-1 my-md-3 rounded-3" style="border-bottom: 3px solid #08609c;"></div>
+<!--                <div class="mx-3 my-1 my-md-3 rounded-3" style="border-bottom: 3px solid #08609c;"></div>-->
 
                 <!--                Form Body-->
-            <div class="bg-success-subtle p-3 rounded-3">
+            <div class="bg-success-subtle mx-1 my-1 my-md-3 px-2 py-3 rounded-3">
                 <form t-ref="hse_form" t-att-id="props.id"
                     action="/sdhseformsent/" method="post"
                     enctype="multipart/form-data"
