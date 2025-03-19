@@ -27,7 +27,7 @@ export class SdHseFormsWebsite extends Component {
         this._recaptcha = new ReCaptcha();
         console.log('this', session)
         onMounted( () => {
-        this.getGeoData()
+//            this.getGeoData()
             this.sendButtonListener = this.sendButton.el.addEventListener('click', async (e) => {
                 e.preventDefault();
                 this.form_result.el.innerHTML = ''
