@@ -16,7 +16,7 @@ class SdHseFormsProjects(models.Model):
     name = fields.Char(required=True)
     active = fields.Boolean(default=True)
     project_name = fields.Many2one('sd_projects.projects')
-    project_code = fields.Char(related='project_name.project_code')
+    project_code = fields.Char(related='project_name.project_hse_code')
     base_address = fields.Char(compute="_base_address")
     link_address = fields.Char(compute="_base_address")
     qr_code = fields.Binary("QR Code", compute='generate_qr_code')
