@@ -10,7 +10,7 @@
     'category': 'Service Desk/Service Desk',
     'application': True,
     'version': '18.0.1.0.0',
-    'depends': ['base', 'website', ],
+    'depends': ['base', 'website', 'sd_projects' ],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
