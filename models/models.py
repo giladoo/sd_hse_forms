@@ -4,6 +4,9 @@ from odoo import models, fields, api, _
 import qrcode
 import base64
 from io import BytesIO
+from icecream import ic
+from bs4 import BeautifulSoup
+
 
 class SdHseFormsProjects(models.Model):
     _name = "sd_hse_forms.projects"
@@ -45,7 +48,6 @@ class SdHseFormsProjects(models.Model):
 class SdHseFormsStopCard(models.Model):
     _name = "sd_hse_forms.stop_card"
     _description = "Stop Card"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
 
     uu_id = fields.Char(required=True)
     subject = fields.Text()
@@ -60,3 +62,39 @@ class SdHseFormsStopCard(models.Model):
     safety = fields.Boolean(default=False)
     health = fields.Boolean(default=False)
     environment = fields.Boolean(default=False)
+
+
+    def message_new(self, msg, custom_values=None):
+        ic(msg, custom_values)
+        if custom_values is None:
+            custom_values = {}
+
+        # Extract data from the email body
+        raw_body = msg.get('body', '')
+        soup = BeautifulSoup(raw_body, 'html.parser')
+        body = soup.get_text()
+        ic(body)
+        ic(dict(body))
+        uu_id = self._extract_value(body, 'uu_id:')
+        subject = self._extract_value(body, 'subject:')
+        actions = self._extract_value(body, 'actions:')
+        safety = self._extract_value(body, 'safety:')
+
+        # Add extracted data to custom_values
+        custom_values.update({
+            'uu_id': uu_id,
+            'subject': subject,
+            'actions': actions,
+            'safety': safety,
+        })
+        return super(SdHseFormsStopCard, self).message_new(msg, custom_values)
+
+
+    def _extract_value(self, body, key):
+        """Helper method to extract values from the email body."""
+        try:
+            start = body.index(key) + len(key)
+            end = body.index('\n', start)
+            return body[start:end].strip()
+        except ValueError:
+            return ''

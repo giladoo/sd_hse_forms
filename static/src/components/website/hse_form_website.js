@@ -25,7 +25,7 @@ export class SdHseFormsWebsite extends Component {
         this.hse_checkboxes = useRef('hse_checkboxes')
         this.form_result = useRef('form_result')
         this._recaptcha = new ReCaptcha();
-        console.log('this', session)
+//        console.log('this', session)
         onMounted( () => {
 //            this.getGeoData()
             this.sendButtonListener = this.sendButton.el.addEventListener('click', async (e) => {
@@ -65,7 +65,7 @@ export class SdHseFormsWebsite extends Component {
 
                 if(!notCompletedForm){
                     let res = await this.setRecord(data);
-                    console.log('res:', res)
+//                    console.log('res:', res)
                     if (!res){
                          this.form_result.el.innerHTML = `<p class="text-danger" > Reload page</p>`
 

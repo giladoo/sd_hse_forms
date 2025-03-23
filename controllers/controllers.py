@@ -19,8 +19,8 @@ class SdHseFormsContorller(http.Controller):
     @http.route('/sdhseform/<string:project_code>', type='http', website=True, auth="public",)
     def hse_forms(self, project_code,  **kwargs):
         # logging.info(f"\nREMOTE_ADDR{request.httprequest.environ['HTTP_X_REAL_IP']}\n")
-        ic(request)
-        ic(dict(request.session))
+        # ic(request)
+        # ic(dict(request.session))
         data = {
             'name':'',
             'id': 0,
@@ -53,7 +53,7 @@ class SdHseFormsContorller(http.Controller):
     @http.route('/sdhseformsdata', type='json', website=True, auth="public",csrf=False)
     def hse_forms_data(self,  **post):
         # data = request.httprequest.get_data()
-        ic('sdhse forms data', post)
+        # ic('sdhse forms data', post)
         ip_address = request.httprequest.environ['HTTP_X_REAL_IP']
         uu_id = post.get('uu_id').get('value', False)
         subject = post.get('subject').get('value')
@@ -72,7 +72,7 @@ class SdHseFormsContorller(http.Controller):
                 logging.error(f"[ERROR]subject:[{subject}] len:[{len(subject)}]\nactions:[{actions}] len:[{len(actions)}]")
                 res = False
             else:
-                record[0].sudo().write({
+                send_data = {
                     'subject': subject,
                     'actions': actions,
                     'is_new': False,
@@ -82,7 +82,28 @@ class SdHseFormsContorller(http.Controller):
                     'observer_name': post.get('observer_name').get('value'),
                     'observer_job_title': post.get('observer_job_title').get('value'),
                     'observer_mobile': post.get('observer_mobile').get('value'),
-                })
+                }
+                record[0].sudo().write(send_data)
+                # Create and send an email
+                email_from = 'hseintranet@kpe.ir'
+                # email_from = 'intranet@kpe.ir'
+                email_to = 'hseintranet@kpe.ir'
+                send_data['uu_id'] = uu_id
+
+                # body_html = " ".join(f"{key}: {value} \n" for key, value in send_data.items())
+                # ic(body_html)
+
+                # mail = request.env['mail.mail'].sudo().create({
+                #     'subject': uu_id,
+                #     'body_html': send_data,
+                #     'email_to': email_to,
+                #     'email_from': email_from,
+                # })
+                # try:
+                #     mail.sudo().send()
+                # except Exception as er:
+                #     logging.error(f"[MAIL SEND] on [sdhseformsdata] uuid:[{uu_id}] from [{email_from}] to [{email_to}] \n {er}")
+
                 res = True
         else:
             logging.error(f"[ERROR]The [{ip_address}] without UUID")
@@ -96,9 +117,16 @@ class SdHseFormsContorller(http.Controller):
     @http.route(['/sdhseformsent', '/sdhseformsent/<string:uu_id>'], type='http',
                 website=True, auth="public", methods=['POST'],csrf=False )
     def hse_form_sent(self, uu_id=0, **post):
+        """ After submission of a form, it returns the saved data to the client to make sure it is recorded
+
+        :param str uu_id: uuid of the form
+        """
+
+        # TODO: it can be sent by email or SMS to client.
+
         props = False
 
-        ic('sdhse form sent 1',uu_id, post)
+        # ic('sdhse form sent 1',uu_id, post)
         record = request.env['sd_hse_forms.stop_card'].sudo().search([('uu_id', '=', uu_id),
                                                                       ('is_new', '=', False), ],
                                                                      order='id desc', limit=1 )
@@ -111,6 +139,11 @@ class SdHseFormsContorller(http.Controller):
                 'uu_id': uu_id,
             }
 
-        ic('sdhse form sent 2',record, props)
+        # ic('sdhse form sent 2',record, props)
         return http.request.render('sd_hse_forms.form_sent_template', {'props': props})
 
+    @http.route(['/sdhseremoteserver', ], type='json',
+                website=True, auth="user", methods=['POST'],csrf=False )
+    def hse_remote_server(self, uu_id=0, **post):
+        ic(post)
+        return {'data': 'arash'}
