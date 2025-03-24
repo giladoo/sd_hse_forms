@@ -2,9 +2,9 @@
 from odoo import http, _
 from odoo.http import request, content_disposition, Response
 from odoo.exceptions import ValidationError
-from datetime import datetime, timedelta
-import datetime
+from datetime import datetime, date, timedelta
 import jdatetime
+import pytz
 import logging
 import io
 from io import BytesIO
@@ -21,10 +21,12 @@ class SdHseFormsContorller(http.Controller):
         # logging.info(f"\nREMOTE_ADDR{request.httprequest.environ['HTTP_X_REAL_IP']}\n")
         # ic(request)
         # ic(dict(request.session))
+        today = datetime.now(pytz.timezone('Asia/Tehran'))
+        ic(today)
         data = {
             'name':'',
             'id': 0,
-            'jdate': jdatejs(format="%Y/%m/%d"),
+            'jdate': jdatejs(today, format="%Y/%m/%d"),
             'uu_id': 0,
         }
         project_id = request.env['sd_hse_forms.projects'].sudo().search([('project_code', '=', project_code)])
@@ -38,17 +40,20 @@ class SdHseFormsContorller(http.Controller):
             request.env['sd_hse_forms.stop_card'].sudo().create({
                 'uu_id': uu_id,
                 'ip_address': request.httprequest.environ['HTTP_X_REAL_IP'],
-                'project_name': project_id.id,
+                'project_name': project_id.project_name,
+                'project_uu_id': project_id.project_uu_id,
+
             })
             data = {
-                'name': project_id.name,
+                'project_uu_id': project_id.project_uu_id,
+                'project_name': project_id.project_name,
                 'link_address': project_id.link_address,
-                'id': project_id.id,
-                'jdate': jdatejs(format="%Y/%m/%d"),
+                'jdate': jdatejs(today, format="%Y/%m/%d"),
                 'uu_id': uu_id,
             }
 
         return http.request.render('sd_hse_forms.form_template', {'props': data})
+
 
     @http.route('/sdhseformsdata', type='json', website=True, auth="public",csrf=False)
     def hse_forms_data(self,  **post):
@@ -65,6 +70,7 @@ class SdHseFormsContorller(http.Controller):
         if uu_id:
             record = request.env['sd_hse_forms.stop_card'].sudo().search([('uu_id', '=', uu_id),
                                                                           ('is_new', '=', True), ], order='id desc',)
+            ic(uu_id)
             if len(record) == 0 or len(record) > 3:
                 logging.error(f"[ERROR]The [{uu_id}] count: [{len(record)}]")
                 res = False
@@ -112,8 +118,6 @@ class SdHseFormsContorller(http.Controller):
         return res
 
 
-
-
     @http.route(['/sdhseformsent', '/sdhseformsent/<string:uu_id>'], type='http',
                 website=True, auth="public", methods=['POST'],csrf=False )
     def hse_form_sent(self, uu_id=0, **post):
@@ -126,7 +130,7 @@ class SdHseFormsContorller(http.Controller):
 
         props = False
 
-        # ic('sdhse form sent 1',uu_id, post)
+        ic('sdhse form sent 1',uu_id, post)
         record = request.env['sd_hse_forms.stop_card'].sudo().search([('uu_id', '=', uu_id),
                                                                       ('is_new', '=', False), ],
                                                                      order='id desc', limit=1 )
@@ -134,8 +138,8 @@ class SdHseFormsContorller(http.Controller):
             props = {
                 'subject': record.subject,
                 'actions': record.actions,
-                'link_address': record.project_name.link_address,
-                'project_name': record.project_name.name,
+                'link_address': post.get('link_address'),
+                'project_name': record.project_name,
                 'uu_id': uu_id,
             }
 

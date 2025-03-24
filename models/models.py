@@ -11,15 +11,18 @@ from bs4 import BeautifulSoup
 class SdHseFormsProjects(models.Model):
     _name = "sd_hse_forms.projects"
     _description = "Projects"
-    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _inherit = ['mail.thread',]
 
-    name = fields.Char(required=True)
+
     active = fields.Boolean(default=True)
-    project_name = fields.Many2one('sd_projects.projects')
-    project_code = fields.Char(related='project_name.project_hse_code')
-    base_address = fields.Char(compute="_base_address")
-    link_address = fields.Char(compute="_base_address")
-    qr_code = fields.Binary("QR Code", compute='generate_qr_code')
+    project_uu_id = fields.Char()
+    project_name = fields.Char()
+    project_code = fields.Char()
+    link_address = fields.Char()
+
+
+    # base_address = fields.Char(compute="_base_address")
+    # qr_code = fields.Binary("QR Code", compute='generate_qr_code')
 
     def generate_qr_code(self):
         for rec in self:
@@ -51,6 +54,7 @@ class SdHseFormsStopCard(models.Model):
     _description = "Stop Card"
 
     uu_id = fields.Char(required=True)
+    project_uu_id = fields.Char()
     subject = fields.Text()
     actions = fields.Text()
     observer_name = fields.Char()
@@ -59,7 +63,8 @@ class SdHseFormsStopCard(models.Model):
     ip_address = fields.Char()
     active = fields.Boolean(default=True)
     is_new = fields.Boolean(default=True)
-    project_name = fields.Many2one('sd_hse_forms.projects')
+    # project_name = fields.Many2one('sd_hse_forms.projects')
+    project_name = fields.Char()
     safety = fields.Boolean(default=False)
     health = fields.Boolean(default=False)
     environment = fields.Boolean(default=False)
@@ -89,7 +94,6 @@ class SdHseFormsStopCard(models.Model):
             'safety': safety,
         })
         return super(SdHseFormsStopCard, self).message_new(msg, custom_values)
-
 
     def _extract_value(self, body, key):
         """Helper method to extract values from the email body."""

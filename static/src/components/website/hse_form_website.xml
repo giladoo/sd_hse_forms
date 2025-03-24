@@ -53,7 +53,7 @@
                             <lable for="project_name" class="form-label">Project:</lable>
                         </div>
                         <div class="col h3">
-                            <div t-att-id="id" t-esc="props.name"/>
+                            <div t-att-id="id" t-esc="props.project_name"/>
                             <input class="website_form_input" type="hidden" name="project_name" t-att-value="props.name"/>
                             <input class="website_form_input" type="hidden" name="project_id" t-att-value="props.id"/>
                             <input class="website_form_input" type="hidden" name="uu_id" t-att-value="props.uu_id"/>
