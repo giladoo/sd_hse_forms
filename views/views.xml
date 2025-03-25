@@ -4,7 +4,7 @@
         <field name="name">Projects</field>
         <field name="model">sd_hse_forms.projects</field>
         <field name="arch" type="xml">
-            <list create="0" edit="0" delete="0">
+            <list create="0" edit="0" >
                 <field name="project_name"/>
                 <field name="project_uu_id"/>
                 <field name="project_code"/>
@@ -13,6 +13,20 @@
         </field>
     </record>
 
+    <record id="projects_search" model="ir.ui.view">
+        <field name="name">Projects</field>
+        <field name="model">sd_hse_forms.projects</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="active"/>
+                <field name="project_name"/>
+                <field name="project_uu_id" />
+                <field name="project_code" />
+                <field name="link_address" />
+                <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
 
     <record id="stop_card_list" model="ir.ui.view">
         <field name="name">stop_card</field>
@@ -33,6 +47,21 @@
                 <field name="observer_job_title"/>
                 <field name="observer_mobile"/>
             </list>
+        </field>
+    </record>
+
+    <record id="stop_card_search" model="ir.ui.view">
+        <field name="name">stop_card</field>
+        <field name="model">sd_hse_forms.stop_card</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="active"/>
+                <field name="project_name" />
+                <field name="subject"/>
+                <field name="actions" />
+                <filter name="active" string="Archived" domain="[('active', '=', False)]"/>
+                <filter name="project" string="Project" context="{'group_by': 'project_name'}"/>
+            </search>
         </field>
     </record>
 
